@@ -3,8 +3,9 @@ import {BrowserRouter, Route} from "react-router-dom"
 
 import Navbar from './components/layout/Navbar'
 import Sidenav from './components/layout/Sidenav'
-import SidenavContextProvider from './contexts/SidenavContext';
-import TodoList from './components/dashboard/TodoList';
+import SidenavContextProvider from './contexts/SidenavContext'
+import Dashboard from './components/dashboard/Dashboard'
+import WhatTodo from './components/whatTodo/WhatTodo'
 
 function App() {
 return (
@@ -14,11 +15,8 @@ return (
 					<Navbar />
 					<main className="row main">
 						<Sidenav />
-						<div className="col s12 m8 l8">
-							<TodoList />
-							<div className="divider"></div>
-							<TodoList />
-						</div>
+						<Route exact path={["/", "/dashboard"]} component={ Dashboard } />
+						<Route path="/whattodo" component={WhatTodo}/>
 					</main>
 				</BrowserRouter>
 			</div>

@@ -65,7 +65,10 @@ function Sidenav() {
                 {screenNames.map(screenName => {
                     const activeClass = (activeScreen === screenName) ? "current-screen-name" : "";
                     return ( 
-                        <div className={`screen-name ${activeClass}`} key={screenName} onClick={setActiveScreen}>
+                        <div 
+                            className={`screen-name ${activeClass}`} 
+                            key={screenName} 
+                            onClick={() => {setActiveScreen(screenName)}}>
                             <NavItem
                                 screenName={screenName}/>
                         </div>
