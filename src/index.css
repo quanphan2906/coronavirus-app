@@ -1,13 +1,100 @@
-body {
+/* * {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+html, body, .root, .App{
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.main{
+  height: 100vh;
+  margin-bottom: 0rem;
+}
+
+.row .col {
+  padding-left: 0em;
+  padding-right: 0em;
+}
+
+.nav-wrapper .container div {
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+}
+
+.side-nav {
+  box-shadow: 0 0 1.25rem 0 rgba(0,0,0,.28);
+  height: 100vh;
+  border-radius: 4px;
+}
+
+
+.side-nav .container .initials-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-nav .container .initials-container .initials{
+  align-self: center;
+  padding: 0.4rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-top: 3rem;
+}
+
+.side-nav .screen-name {
+  padding: 1rem 0rem;
+}
+
+.side-nav .screen-name p {
+  padding-top: .3125rem;
+  padding-bottom: .5rem;
+  padding-left: 3.25rem;
+}
+
+.side-nav .current-screen-name, .side-nav .section .screen-name:hover {
+  background-color: #FFD850;
+  cursor: pointer;
+}
+
+.side-nav .close-icon {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border-radius: 90rem;
+}
+
+.side-nav .close-icon:hover {
+	text-shadow: 0 0 2px #000;
+}
+
+.side-nav .logout :hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.todo-list {
+  margin-top: 2rem;
+}
+
+.todo-list .row .col .card .card-title {
+  padding-left: 1.5rem;
+}
+
+.todo-list .row .col .card .card-content {
+  padding: 2rem 1.5rem;
+  padding-top: 0.3rem;
+}
+
+.todo-list .more-info {
+  width: 100%;
+  padding-bottom: 2rem;
+  cursor: pointer;
+  text-align: end;
+}
+
+.todo-list .more-info:hover {
+  text-decoration: underline;
 }
