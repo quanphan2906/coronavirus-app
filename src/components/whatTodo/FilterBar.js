@@ -1,22 +1,35 @@
 import React, { useEffect } from 'react'
 import M from "materialize-css"
 
-function FilterBar() {
+function FilterBar(props) {
     useEffect(() => {
         var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems);
+        M.FormSelect.init(elems);   
     })
+
+    var title = "";
+    switch(props.title){
+        case "topics":
+            title = "Choose your topic";
+            break;
+        case "filterBy":
+            title = "Filter By";
+            break;
+        default:
+            break;  
+    }
+
     return (
-        <div class="input-field row filter-bar">
-            <div className="filter col s4 m4 l3">
-                <select multiple>
-                    <option value="" disabled selected> Choose a topic </option>
-                    <option value="1"> Learning websites </option>
-                    <option value="2"> Craft </option>
-                    <option value="3"> Cooking </option>
-                </select>
-            </div>
-        </div>
+        <select multiple={props.multiple}>
+            <option value="" disabled default> {title} </option>
+            {
+                props.options.map(option => {
+                    return (
+                        <option value={option} key={option}> {option} </option>
+                    )   
+                })
+            }
+        </select>
     )
 }
 

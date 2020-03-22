@@ -11,7 +11,7 @@ export default function Card() {
             <div className="card-title">
                 Card title
             </div>
-            <div class="card-content">
+            <div className="card-content">
                 <p>I am a very simple card. I am good at containing small bits of information.
                 I am convenient because I require little markup to use effectively.</p>
                 <a href="/" className="right"> <i className="material-icons pink-text text-lighten-2"> more_horiz </i> </a>

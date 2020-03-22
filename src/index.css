@@ -1,141 +1,359 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* body {
-  background: url("https://www.extension.iastate.edu/news/files/eo-news/images/Tree%20planting.jpg") no-repeat center center;
-  background-size: cover;
-
-} */
-
-html, body, .root, .App{
-  height: 100vh;
+.bold-text {
+    font-weight: bold;
 }
 
-.main{
-  height: 100vh;
-  margin-bottom: 0rem;
+html,
+body,
+.root,
+.App {
+    height: 100%;
+}
+
+.main-wrapper {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+.main {
+    height: 100%;
+    margin-bottom: 0rem;
+}
+
+.row {
+    margin-left: 0rem;
+    margin-right: 0rem;
 }
 
 .row .col {
-  padding-left: 0em;
-  padding-right: 0em;
+    padding-left: 0em;
+    padding-right: 0em;
+    height: 100%;
 }
 
 .nav-wrapper .container div {
-  width: fit-content;
-  height: fit-content;
-  margin: 0;
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
 }
 
 .side-nav {
-  box-shadow: 0 0 1.25rem 0 rgba(0,0,0,.28);
-  height: 100vh;
-  border-radius: 4px;
+    box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.28);
+    height: 100%;
+    border-radius: 4px;
+    width: 100%;
 }
-
 
 .side-nav .container .initials-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
-.side-nav .container .initials-container .initials{
-  align-self: center;
-  padding: 0.4rem;
-  width: 3.4rem;
-  height: 3.4rem;
-  margin-top: 3rem;
+.side-nav .container .initials-container .initials {
+    align-self: center;
+    padding: 0.4rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    margin-top: 3rem;
 }
 
 .side-nav .screen-name {
-  padding: 1rem 0rem;
-  position: sticky;
+    padding: 1rem 0rem;
+    position: sticky;
 }
 
 .side-nav .screen-name p {
-  padding-top: .3125rem;
-  padding-bottom: .5rem;
-  padding-left: 3.25rem;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.5rem;
+    padding-left: 3.25rem;
 }
 
-.side-nav .current-screen-name, .side-nav .section .screen-name:hover {
-  background-color: #FFD850;
-  cursor: pointer;
+.side-nav .current-screen-name,
+.side-nav .section .screen-name:hover {
+    background-color: #ffd850;
+    cursor: pointer;
 }
 
 .side-nav .close-icon {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
-  border-radius: 90rem;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    border-radius: 90rem;
 }
 
 .side-nav .close-icon:hover {
-	text-shadow: 0 0 2px #000;
+    text-shadow: 0 0 2px #000;
 }
 
 .side-nav .logout :hover {
-  text-decoration: underline;
-  cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .todo-list {
-  margin-top: 2vw;
+    margin-top: 2vw;
 }
 
-.todo-list .row .col .card .card-title {
-  padding-left: 1.5vw;
+.card .card-title {
+    padding-left: 1.5vw;
 }
 
-.todo-list .row .col .card .card-content {
-  padding: 2vw 1.5vw;
-  padding-top: 1vw;
-}
-
-@media screen and (max-width: 600px){
-  .side-nav {
-    position: absolute;
-  }
-  .todo-list .row .col .card {
-    display: block;
-    /* margin: 0 auto; */
-  }
-  .todo-list .row .col .card .card-title {
-    padding-left: 4vw;
-  }
-  .todo-list .row .col .card .card-content {
-    padding: 2vw 4vw;
+.card .card-content {
+    padding: 2vw 1.5vw;
     padding-top: 1vw;
-    padding-bottom: 6vw;
-  }
+}
+
+.width-250px {
+    width: 250px;
+}
+
+@media screen and (max-width: 600px) {
+    .side-nav {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    }
+    .card {
+        display: block;
+        margin-right: 1vw;
+    }
+    .card .card-title {
+        padding-left: 4vw;
+    }
+    .card .card-content {
+        padding: 2vw 4vw;
+        padding-top: 1vw;
+        padding-bottom: 6vw;
+    }
 }
 
 .todo-list .more-info {
-  width: 100%;
-  padding-top: 0vw;
-  padding-bottom: 1vw;
-  padding-right: 2vw;
-  cursor: pointer;
-  text-align: end;
+    width: 100%;
+    padding-top: 0vw;
+    padding-bottom: 1vw;
+    padding-right: 2vw;
+    cursor: pointer;
+    text-align: end;
 }
 
-.todo-list .more-info:hover {
-  text-decoration: underline;
+.todo-list .more-info span:hover {
+    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: pink;
 }
 
-.todo-list .section-title{
-  font-weight: bold;
-  font-size: 2rem;
+.todo-list .section-title {
+    font-weight: bold;
+    font-size: 2rem;
 }
 
-.whattodo .filter-bar {
-  width: 100%;
+.whattodo-wrapper {
+    margin-left: 3vw;
+    margin-right: 3vw;
 }
 
-.whattodo .filter-bar .filter {
-  margin: 2vw;
-  margin-left: 5vw;
+.whattodo-wrapper .filter-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.whattodo-wrapper .filter-bar .filter {
+    margin: 2vw;
+    margin-left: 5vw;
+}
+
+.whattodo-wrapper .whattodo-container {
+    margin-left: 4vw;
+    margin-right: 4vw;
+}
+
+.whattodo-wrapper .whattodo-container .topic {
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+}
+
+.create-todo {
+    width: 100%;
+    height: 100%;
+}
+
+.create-todo .todo-title-wrapper {
+    margin-top: 5vh;
+    min-height: 15vh;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-todo .todo-title-wrapper .input-field {
+    width: 80%;
+}
+
+.create-todo .todo-title-wrapper #todo-title-input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 5vh;
+    border-bottom: 0em;
+}
+
+.create-todo .todo-title-wrapper #todo-title-input:focus {
+    border-bottom: 0em;
+    box-shadow: 0 0 0 0 rgb(255, 255, 255);
+}
+
+.create-todo .summary-wrapper {
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+}
+
+.create-todo .title {
+    margin-left: auto;
+    width: fit-content;
+    height: fit-content;
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.create-todo .description-wrapper .title {
+    margin-left: 0rem;
+}
+
+.create-todo .description-wrapper img {
+    width: 20vw;
+    height: auto;
+    border-radius: 4px;
+}
+
+.create-todo .steps-wrapper .steps-container {
+    margin-top: 13vh;
+}
+
+.create-todo .steps-wrapper .steps-container .step-item img {
+    width: 15vw;
+    height: auto;
+}
+
+.create-todo .steps-wrapper .steps-container .step-item .step-label {
+    font-size: 1.5vw;
+    margin: 8px 0px;
+    font-weight: 500;
+}
+
+.create-todo .steps-wrapper .btn-add-container {
+    margin-top: 7vh;
+    margin-bottom: 15vh;
+}
+
+.your-todos .tabs {
+    margin-top: 6vh;
+    margin-bottom: 4vh;
+}
+
+.your-todos .tabs .tab-item {
+    text-align: center;
+    padding-top: 1vw;
+    font-size: 18px;
+    border-radius: 4px;
+}
+
+.your-todos .tabs .tab-item:hover {
+    background-color: rgba(255, 192, 203, 0.2);
+}
+
+.your-todos .tabs .active {
+    border-bottom: 1px solid hotpink;
+}
+
+.your-todos .your-todo-container .card .card-content-wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.your-todos
+    .your-todo-container
+    .card
+    .card-content-wrapper
+    .card-content-container {
+    margin: 8px;
+}
+
+.your-todos
+    .your-todo-container
+    .card
+    .card-content-wrapper
+    .card-content-container
+    .card-title {
+    font-weight: bold;
+}
+
+.your-todos
+    .your-todo-container
+    .card
+    .card-content-wrapper
+    .card-content-container
+    .card-content {
+    padding-bottom: 1vw;
+}
+
+.your-todos
+    .your-todo-container
+    .card
+    .card-content-wrapper
+    .card-content-container
+    .card-topic {
+    opacity: 80%;
+    font-size: 14px;
+    margin-left: 2vw;
+}
+
+.your-todos .your-todo-container .card .card-content-wrapper .card-image img {
+    width: 30vw;
+    height: auto;
+    margin: 8px;
+    margin-left: 0px;
+    border-radius: 4px;
+}
+
+.your-todos
+    .your-todo-container
+    .card
+    .card-content-wrapper
+    .card-content-container
+    .card-see-more {
+    text-align: end;
+    margin-right: 2vw;
+    cursor: pointer;
+}
+
+.your-todos
+    .your-todo-container
+    .card
+    .card-content-wrapper
+    .card-content-container
+    .card-see-more:hover {
+    text-decoration: underline;
+}
+
+.your-todos .button-container .page-num-container {
+    margin: 0px 8px 12px;
+    font-size: 1.5vw;
+    font-weight: 450;
 }
