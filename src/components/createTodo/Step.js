@@ -1,6 +1,15 @@
 import React from "react";
 
 function Step(props) {
+    const step = props.step
+        ? {
+              content: props.step.content,
+              imgUrl: props.step.content
+          }
+        : {
+              content: "",
+              imgUrl: "https://via.placeholder.com/150"
+          };
     return (
         <div className="step-item row">
             {props.isAuthor ? (
@@ -8,27 +17,21 @@ function Step(props) {
                     <textarea
                         type="text"
                         id="step"
+                        index={props.index}
                         className="materialize-textarea"
+                        value={step.content}
+                        onChange={props.onChange}
                     />
-                    <label htmlFor="step"> Step 1 </label>
+                    <label htmlFor="step"> Step {props.index} </label>
                 </div>
             ) : (
                 <div className="col l6 offset-l1">
-                    <div className="step-label"> Step 1 </div>
-                    <p>
-                        {" "}
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Dicta quis, animi deleniti adipisci vel quasi
-                        quibusdam, cum perferendis amet nisi officia ab quia
-                        beatae ad accusantium impedit delectus error fuga?{" "}
-                    </p>
+                    <div className="step-label"> Step {props.index} </div>
+                    <p>{step.content}</p>
                 </div>
             )}
             <div className="col l4 offset-l1">
-                <img
-                    src="https://thumbs.dreamstime.com/b/artist-s-workshop-items-children-s-creativity-wooden-background-acrylic-paint-brushes-white-wooden-background-pi-89795313.jpg"
-                    alt=""
-                />
+                <img src={step.imgUrl} alt="" />
             </div>
         </div>
     );

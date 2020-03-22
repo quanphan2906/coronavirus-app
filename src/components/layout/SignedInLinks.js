@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { SidenavContext } from "../../contexts/SidenavContext";
 import services from "../../services";
 import { AuthContext } from "../../contexts/AuthContext";
 
-function SignedInLinks(props) {
+function SignedInLinks() {
     const { changeIsOpen } = useContext(SidenavContext);
-    const { auth, setIsAuthReady } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
     const logout = async () => {
         await services.logout();
     };
@@ -33,4 +33,4 @@ function SignedInLinks(props) {
     );
 }
 
-export default withRouter(SignedInLinks);
+export default SignedInLinks;

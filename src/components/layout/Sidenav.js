@@ -43,6 +43,7 @@ function Sidenav(props) {
     ];
 
     const [activeScreen, setActiveScreen] = useState(screenNames[0].name);
+    // TODO: setActiveScreen by url, do not
 
     const changeActiveScreen = screenName => {
         setActiveScreen(screenName.name);
@@ -64,8 +65,7 @@ function Sidenav(props) {
                         changeIsOpen(false);
                     }}
                 >
-                    {" "}
-                    close{" "}
+                    close
                 </i>
             </div>
 

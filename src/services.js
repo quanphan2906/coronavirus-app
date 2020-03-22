@@ -78,10 +78,14 @@ const render = async (collectionName, id) => {
         .collection(collectionName)
         .doc(id)
         .get();
-    return {
-        id: doc.id,
-        ...doc.data()
-    };
+    if (doc.exists) {
+        return {
+            id: doc.id,
+            ...doc.data()
+        };
+    } else {
+        return null;
+    }
 };
 
 const trackUser = trackUserFunc => {
@@ -140,6 +144,24 @@ const create = async (collectionName, data) => {
     await db.collection(collectionName).add(data);
 };
 
+const query = async (collectionName, key, operator, value) => {
+    const db = firebase.firestore();
+    const snapshot = await db
+        .collection(collectionName)
+        .where(key, operator, value)
+        .get();
+    if (snapshot.empty === false) {
+        return snapshot.docs.map(doc => {
+            return {
+                id: doc.id,
+                ...doc.data()
+            };
+        });
+    } else {
+        return null;
+    }
+};
+
 export default {
     login,
     signup,
@@ -149,5 +171,6 @@ export default {
     renderAll,
     renderWithLimit,
     render,
-    create
+    create,
+    query
 };

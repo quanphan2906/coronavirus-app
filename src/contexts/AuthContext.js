@@ -13,7 +13,6 @@ function AuthContextProvider(props) {
     useEffect(() => {
         const unsubscribe = services.trackUser(trackUser);
         return () => {
-            console.log(unsubscribe);
             unsubscribe();
         };
     }, []);
@@ -21,8 +20,7 @@ function AuthContextProvider(props) {
         <AuthContext.Provider
             value={{ auth, setAuth, isAuthReady, setIsAuthReady }}
         >
-            {" "}
-            {props.children}{" "}
+            {props.children}
         </AuthContext.Provider>
     );
 }

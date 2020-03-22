@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import TodoList from "../layout/TodoList";
 import { AuthContext } from "../../contexts/AuthContext";
-import { Redirect } from "react-router-dom";
 
 function Dashboard() {
     const tabs = [
