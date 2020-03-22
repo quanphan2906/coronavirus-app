@@ -43,7 +43,6 @@ const signup = async newUserObj => {
 
 const logout = async () => {
     await firebase.auth().signOut();
-    console.log("log out finished");
 };
 
 const renderAll = async collectionName => {
@@ -86,18 +85,20 @@ const render = async (collectionName, id) => {
 };
 
 const trackUser = trackUserFunc => {
-    firebase.auth().onAuthStateChanged(async user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(async user => {
         if (user) {
             const userStore = await render("users", user.uid);
             const userObj = {
                 ...userStore,
-                id: user.uid
+                id: user.uid,
+                email: user.email
             };
             trackUserFunc(userObj);
         } else {
             trackUserFunc(null);
         }
     });
+    return unsubscribe;
 };
 
 const syncWithFirebase = async (collectionName, synDataFunc, limit = null) => {

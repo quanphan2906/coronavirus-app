@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { SidenavContext } from "../../contexts/SidenavContext";
+import services from "../../services";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function NavItem(props) {
     return (
@@ -47,8 +49,10 @@ function Sidenav(props) {
         props.history.push(screenName.url);
     };
 
+    const { auth } = useContext(AuthContext);
+
     const logout = () => {
-        console.log("log out");
+        services.logout();
     };
 
     return isOpen ? (
@@ -71,24 +75,21 @@ function Sidenav(props) {
                         to="/"
                         className="btn btn-floating pink lighten-2 initials"
                     >
-                        {" "}
-                        YN{" "}
+                        {auth.initials}
                     </NavLink>
                 </div>
                 <section className="section">
                     <div className="section">
                         <div>
-                            {" "}
-                            <b> Username: </b>{" "}
+                            <b> Username: </b>
                         </div>
-                        <div> yoninja1234 </div>
+                        <div> {auth.firstName + auth.lastName} </div>
                     </div>
                     <div className="section">
                         <div>
-                            {" "}
-                            <b> Email </b>{" "}
+                            <b> Email </b>
                         </div>
-                        <div> yoninja1234@gmail.com </div>
+                        <div> {auth.email} </div>
                     </div>
                 </section>
             </div>
@@ -117,12 +118,7 @@ function Sidenav(props) {
 
             <div className="divider" />
 
-            <section
-                className="section"
-                onClick={() => {
-                    logout();
-                }}
-            >
+            <section className="section" onClick={logout}>
                 <div className="container logout">
                     <div className="red-text text-darken-2"> Log out </div>
                 </div>

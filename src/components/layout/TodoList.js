@@ -15,12 +15,7 @@ function TodoList(props) {
             </div>
             <div className="divider"></div>
             <div className="row section">
-                <div className="col s12 m3 l3 offset-l1 offset-m1">
-                    <Card />
-                </div>
-                <div className="col s12 m3 l3 offset-l1 offset-m1">
-                    <Card />
-                </div>
+                {}
                 <div className="col s12 m3 l3 offset-l1 offset-m1">
                     <Card />
                 </div>
