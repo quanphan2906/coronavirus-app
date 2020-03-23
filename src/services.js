@@ -144,6 +144,14 @@ const create = async (collectionName, data) => {
     await db.collection(collectionName).add(data);
 };
 
+const update = async (collectionName, id, data) => {
+    const db = firebase.firestore();
+    await db
+        .collection(collectionName)
+        .doc(id)
+        .update(data);
+};
+
 const query = async (collectionName, key, operator, value) => {
     const db = firebase.firestore();
     const snapshot = await db
@@ -162,6 +170,23 @@ const query = async (collectionName, key, operator, value) => {
     }
 };
 
+const uploadFile = async (folderName, fileName, file) => {
+    const ref = firebase.storage().ref(`${folderName}/${fileName}`);
+    try {
+        const snapshot = await ref.put(file);
+        const url = await snapshot.ref.getDownloadURL();
+        return {
+            url,
+            isSuccess: true
+        };
+    } catch (err) {
+        return {
+            error: err.message,
+            isSuccess: false
+        };
+    }
+};
+
 export default {
     login,
     signup,
@@ -172,5 +197,7 @@ export default {
     renderWithLimit,
     render,
     create,
-    query
+    update,
+    query,
+    uploadFile
 };

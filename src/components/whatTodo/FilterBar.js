@@ -5,7 +5,6 @@ function FilterBar(props) {
     useEffect(() => {
         var elems = document.querySelectorAll("select");
         var instance = M.FormSelect.init(elems);
-        console.log(instance);
     });
 
     var title = "";
@@ -22,16 +21,16 @@ function FilterBar(props) {
 
     return (
         <select
-            multiple={props.multiple}
             id={props.id}
             onChange={props.onChange}
+            value={props.value ? props.value.toLowerCase() : ""}
         >
-            <option value="" disabled default>
+            <option value="" disabled selected>
                 {title}
             </option>
             {props.options.map(option => {
                 return (
-                    <option value={option} key={option}>
+                    <option value={option.toLowerCase()} key={option}>
                         {option}
                     </option>
                 );

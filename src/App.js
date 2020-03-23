@@ -40,10 +40,13 @@ function App() {
                                                 component={WhatTodo}
                                             />
                                             <Route
-                                                path={[
-                                                    "/createtodo",
+                                                path="/createtodo"
+                                                component={CreateTodo}
+                                            />
+                                            <Route
+                                                path={
                                                     "/tododetail/created/:todoId"
-                                                ]}
+                                                }
                                                 component={CreateTodo}
                                             />
                                             <Route

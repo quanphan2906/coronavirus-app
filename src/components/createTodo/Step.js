@@ -1,15 +1,14 @@
 import React from "react";
 
 function Step(props) {
-    const step = props.step
-        ? {
-              content: props.step.content,
-              imgUrl: props.step.content
-          }
-        : {
-              content: "",
-              imgUrl: "https://via.placeholder.com/150"
-          };
+    const step = {
+        content: props.step.content,
+        imgUrl: props.file
+            ? URL.createObjectURL(props.file)
+            : props.step.imgUrl !== ""
+            ? props.step.imgUrl
+            : "https://via.placeholder.com/150"
+    };
     return (
         <div className="step-item row">
             {props.isAuthor ? (
@@ -20,7 +19,9 @@ function Step(props) {
                         index={props.index}
                         className="materialize-textarea"
                         value={step.content}
-                        onChange={props.onChange}
+                        onChange={e => {
+                            props.onStepChange(e, props.index);
+                        }}
                     />
                     <label htmlFor="step"> Step {props.index} </label>
                 </div>
@@ -31,6 +32,12 @@ function Step(props) {
                 </div>
             )}
             <div className="col l4 offset-l1">
+                <input
+                    type="file"
+                    onChange={e => {
+                        props.onImgChange(e, props.index);
+                    }}
+                />
                 <img src={step.imgUrl} alt="" />
             </div>
         </div>
