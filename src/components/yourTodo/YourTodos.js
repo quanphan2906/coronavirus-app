@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TodoSummary from "./TodoSummary";
 import { TodosContext } from "../../contexts/TodosContext";
+import NavButton from "../layout/NavButton";
 
 function YourTodos(props) {
     const tabs = [
@@ -66,15 +67,7 @@ function YourTodos(props) {
             {todos.length ? (
                 <React.Fragment>
                     {renderTodos}
-                    <div className="button-container col l12 center">
-                        <button className="btn btn-floating pink">
-                            <i className="material-icons"> navigate_before </i>
-                        </button>
-                        <span className="page-num-container">1/2</span>
-                        <button className="btn btn-floating pink">
-                            <i className="material-icons"> navigate_next </i>
-                        </button>
-                    </div>
+                    <NavButton />
                 </React.Fragment>
             ) : (
                 <div className="container">You havent had any todo</div>

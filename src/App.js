@@ -36,7 +36,7 @@ function App() {
                                                 component={Dashboard}
                                             />
                                             <Route
-                                                path="/whattodo"
+                                                path="/whattodo/:pageNum"
                                                 component={WhatTodo}
                                             />
                                             <Route
@@ -54,9 +54,10 @@ function App() {
                                                 component={YourTodos}
                                             />
                                             <Route
-                                                path="/tododetail/chosen/:todoId"
+                                                path="/tododetail/:tabId/:todoId"
                                                 component={TodoDetails}
                                             />
+                                            {/* tabId of this Route could be chosen or guest */}
                                         </main>
                                     </div>
                                 ) : (

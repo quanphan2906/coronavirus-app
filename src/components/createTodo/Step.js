@@ -32,12 +32,17 @@ function Step(props) {
                 </div>
             )}
             <div className="col l4 offset-l1">
-                <input
-                    type="file"
-                    onChange={e => {
-                        props.onImgChange(e, props.index);
-                    }}
-                />
+                {props.isAuthor ? (
+                    <input
+                        type="file"
+                        onChange={e => {
+                            props.onImgChange(e, props.index);
+                        }}
+                    />
+                ) : (
+                    false
+                )}
+
                 <img src={step.imgUrl} alt="" />
             </div>
         </div>

@@ -187,6 +187,37 @@ const uploadFile = async (folderName, fileName, file) => {
     }
 };
 
+const paginateQuery = async (collectionName, pageNumber, perPage, query) => {
+    var data = [];
+    const db = firebase.firestore();
+    let collection = db.collection(collectionName);
+
+    for (let key in query) {
+        collection = collection.where(key, "==", query[key]);
+    }
+
+    const r = await collection.get();
+    const total = r.docs.length;
+    const totalPageRes =
+        total % perPage == 0
+            ? total / perPage
+            : Number(Math.floor(total / perPage) + 1);
+
+    const res = await collection.limit(perPage * pageNumber).get();
+
+    let i = 0;
+    res.forEach(doc => {
+        if (i >= (pageNumber - 1) * perPage) {
+            data.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        }
+        i += 1;
+    });
+    return { totalPageRes, data };
+};
+
 export default {
     login,
     signup,
@@ -199,5 +230,6 @@ export default {
     create,
     update,
     query,
-    uploadFile
+    uploadFile,
+    paginateQuery
 };

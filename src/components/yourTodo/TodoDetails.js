@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Step from "../createTodo/Step";
+import services from "../../services";
 
 function TodoDetails(props) {
-    return (
+    const [todoInfo, setTodoInfo] = useState({
+        title: "",
+        type: "",
+        description: "",
+        imgUrl: "",
+        steps: {
+            1: {
+                content: "",
+                imgUrl: ""
+            }
+        },
+        author: "",
+        createdAt: "",
+        users: []
+    });
+    const [isTodoInfoReady, setIsTodoInfoReady] = useState(false);
+    useEffect(() => {
+        const todoId = props.match.params.todoId;
+        const fetchData = async () => {
+            const todoInfoRes = await services.render("todos", todoId);
+            if (todoInfoRes) {
+                setTodoInfo(todoInfoRes);
+                setIsTodoInfoReady(true);
+            } else {
+                // if (props.h)
+                // Redirect to whattodo if tabId is guest, and to yourtods if tabId is chosen
+                props.history.push("/yourtodos/created/1");
+            }
+        };
+        if (todoId) {
+            fetchData();
+        } else {
+            setIsTodoInfoReady(true);
+        }
+    }, []);
+    return isTodoInfoReady ? (
         <div className="create-todo col s10 offset-m1 offset-l1">
             <div className="container todo-title-wrapper white lighten-3 z-depth-2">
-                Create a React app
+                {todoInfo.title}
             </div>
 
             <section className="summary-wrapper row section">
@@ -13,7 +49,7 @@ function TodoDetails(props) {
                     {" "}
                     Summary{" "}
                 </div>
-                <div className="col l4 offset-l1">Topic: Crafting</div>
+                <div className="col l4 offset-l1">Topic: {todoInfo.type} </div>
             </section>
 
             <div className="divider"></div>
@@ -24,19 +60,10 @@ function TodoDetails(props) {
                         {" "}
                         Description{" "}
                     </div>
-                    <div className="">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Consectetur ratione quibusdam, quaerat distinctio
-                        nemo sunt culpa tempora labore eligendi accusamus, quam
-                        dolorum! Nihil, error aut libero natus animi voluptas
-                        illum?
-                    </div>
+                    <div className="">{todoInfo.description}</div>
                 </div>
                 <div className="col l1 offset-l1">
-                    <img
-                        src="https://thumbs.dreamstime.com/b/artist-s-workshop-items-children-s-creativity-wooden-background-acrylic-paint-brushes-white-wooden-background-pi-89795313.jpg"
-                        alt=""
-                    />
+                    <img src={todoInfo.imgUrl} alt="" />
                 </div>
             </section>
 
@@ -44,16 +71,28 @@ function TodoDetails(props) {
 
             <section className="steps-wrapper section">
                 <div className="title pink-text text-darken-2 col l4 offset-l1">
-                    {" "}
-                    Steps{" "}
+                    Steps
                 </div>
                 <div className="steps-container">
-                    <Step isAuthor={false} />
-                    <Step isAuthor={false} />
-                    <Step isAuthor={false} />
-                    <Step isAuthor={false} />
+                    {Object.entries(todoInfo.steps).map(([key, value]) => (
+                        <Step
+                            key={key}
+                            isAuthor={false}
+                            step={value}
+                            index={key}
+                        />
+                    ))}
                 </div>
             </section>
+        </div>
+    ) : (
+        <div className="loading-container">
+            <div className="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
     );
 }
