@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import FilterBar from "./FilterBar";
+import FilterBar from "../layout/FilterBar";
 import TodoList from "../layout/TodoList";
 import NavButton from "../layout/NavButton";
 import services from "../../services";
+import Loader from "../layout/Loader";
 
 function WhatTodo(props) {
-    const filters = {
-        topics: ["Learning websites", "Crafting", "Cooking"]
-        // filterBy: ["Most popular", "Most recent"]
-    };
-    const [topic, setTopic] = useState(filters.topics[0]);
+    const topics = ["Learning websites", "Crafting", "Cooking"];
+    const [topic, setTopic] = useState(topics[0]);
     const [todosCollection, setTodosCollection] = useState([]);
     const [totalPage, setTotalPage] = useState(1);
-    const [isiTodoReady, setIsTodoReady] = useState(false);
+    const [isTodoReady, setIsTodoReady] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             const pageNum = props.match.params.pageNum;
             const perPage = 3;
             const queryObj = {
-                type: topic
+                type: topic.toLowerCase()
             };
             const { totalPageRes, data } = await services.paginateQuery(
                 "todos",
@@ -33,31 +31,25 @@ function WhatTodo(props) {
         fetchData();
     }, [topic]);
     const handleTopicChange = e => {
-        setTopic(e.target.value);
         setIsTodoReady(false);
+        setTopic(e.target.value);
     };
-    return isiTodoReady ? (
-        <div className="col s12 m8 l10 offset-l1 whattodo-wrapper">
+    if (!isTodoReady) return <Loader />;
+    return (
+        <div className="col l12 offset-l1 whattodo-wrapper">
             <div className="input-field filter-bar">
-                {Object.entries(filters).map(([key, value]) => {
-                    return (
-                        <div
-                            className="filter col s4 m4 l6 push-l1 push-m1 push-s1"
-                            key={key}
-                        >
-                            <FilterBar
-                                value={topic}
-                                title={key}
-                                options={value}
-                                onChange={handleTopicChange}
-                            />
-                        </div>
-                    );
-                })}
+                <div className="filter col s4 m4 l6 push-l1 push-m1 push-s1">
+                    <FilterBar
+                        value={topic}
+                        title={"topics"}
+                        options={topics}
+                        onChange={handleTopicChange}
+                    />
+                </div>
             </div>
-            <div className="s10 offset-m1 offset-l1">
-                {filters.topics.map(item =>
-                    item.toLowerCase() == topic.toLowerCase() ? (
+            <div className="offset-l1">
+                {topics.map(item =>
+                    item.toLowerCase() === topic.toLowerCase() ? (
                         <TodoList
                             title={item}
                             key={item}
@@ -68,7 +60,7 @@ function WhatTodo(props) {
                     )
                 )}
             </div>
-            {todosCollection.length != 0 ? (
+            {todosCollection.length !== 0 ? (
                 <NavButton
                     totalPage={totalPage}
                     currentPage={props.match.params.pageNum}
@@ -76,15 +68,6 @@ function WhatTodo(props) {
             ) : (
                 false
             )}
-        </div>
-    ) : (
-        <div className="loading-container">
-            <div className="lds-roller">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
         </div>
     );
 }

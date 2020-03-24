@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Step from "../createTodo/Step";
 import services from "../../services";
+import Loader from "../layout/Loader";
 
 function TodoDetails(props) {
     const [todoInfo, setTodoInfo] = useState({
@@ -19,6 +20,7 @@ function TodoDetails(props) {
         users: []
     });
     const [isTodoInfoReady, setIsTodoInfoReady] = useState(false);
+
     useEffect(() => {
         const todoId = props.match.params.todoId;
         const fetchData = async () => {
@@ -27,17 +29,12 @@ function TodoDetails(props) {
                 setTodoInfo(todoInfoRes);
                 setIsTodoInfoReady(true);
             } else {
-                // if (props.h)
-                // Redirect to whattodo if tabId is guest, and to yourtods if tabId is chosen
-                props.history.push("/yourtodos/created/1");
+                props.history.push("/whattodo/1");
             }
         };
-        if (todoId) {
-            fetchData();
-        } else {
-            setIsTodoInfoReady(true);
-        }
+        fetchData();
     }, []);
+
     return isTodoInfoReady ? (
         <div className="create-todo col s10 offset-m1 offset-l1">
             <div className="container todo-title-wrapper white lighten-3 z-depth-2">
@@ -46,8 +43,7 @@ function TodoDetails(props) {
 
             <section className="summary-wrapper row section">
                 <div className="title pink-text text-darken-2 col l4 offset-l1">
-                    {" "}
-                    Summary{" "}
+                    Summary
                 </div>
                 <div className="col l4 offset-l1">Topic: {todoInfo.type} </div>
             </section>
@@ -86,14 +82,7 @@ function TodoDetails(props) {
             </section>
         </div>
     ) : (
-        <div className="loading-container">
-            <div className="lds-roller">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
+        <Loader />
     );
 }
 

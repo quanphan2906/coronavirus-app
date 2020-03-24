@@ -199,7 +199,7 @@ const paginateQuery = async (collectionName, pageNumber, perPage, query) => {
     const r = await collection.get();
     const total = r.docs.length;
     const totalPageRes =
-        total % perPage == 0
+        total % perPage === 0
             ? total / perPage
             : Number(Math.floor(total / perPage) + 1);
 

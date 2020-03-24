@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import { SidenavContext } from "../../contexts/SidenavContext";
 import services from "../../services";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -13,40 +12,25 @@ function NavItem(props) {
 }
 
 function Sidenav(props) {
-    const {
-        isOpen,
-        windowDimensions,
-        updateWindowDimensions,
-        changeIsOpen
-    } = useContext(SidenavContext);
-
-    useEffect(() => {
-        window.addEventListener("resize", updateWindowDimensions);
-        return () => {
-            window.removeEventListener("resize", updateWindowDimensions);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (windowDimensions.width <= 768) {
-            changeIsOpen(false);
-        } else {
-            changeIsOpen(true);
-        }
-    }, [windowDimensions]);
-
-    const screenNames = [
-        { name: "Dashboard", url: "/dashboard" },
-        { name: "Your Todos", url: "/yourtodos/created/1" },
-        { name: "Create New Todo", url: "/createtodo" },
-        { name: "What Todo?", url: "/whattodo" }
+    const screens = [
+        { name: "Your Todos", url: "/yourtodos/1", id: "yourtodos" },
+        { name: "Create New Todo", url: "/createtodo", id: "createtodo" },
+        { name: "What Todo?", url: "/whattodo/1", id: "whattodo" }
     ];
 
-    const [activeScreen, setActiveScreen] = useState(screenNames[0].name);
-    // TODO: setActiveScreen by url, do not
+    const [activeScreen, setActiveScreen] = useState(screens[0].name);
+
+    useEffect(() => {
+        const activeScreenId = props.location.pathname.split("/")[1];
+        if (activeScreenId !== "tododetail") {
+            const currentActiveScreen = screens.filter(screen => {
+                return screen.id === activeScreenId;
+            });
+            setActiveScreen(currentActiveScreen[0].name);
+        }
+    }, [props.location.pathname]);
 
     const changeActiveScreen = screenName => {
-        setActiveScreen(screenName.name);
         props.history.push(screenName.url);
     };
 
@@ -56,23 +40,17 @@ function Sidenav(props) {
         services.logout();
     };
 
-    return isOpen ? (
+    if (!auth) return <div></div>;
+    return (
         <div className="white lighten-4 side-nav">
-            <div className="hide-on-med-and-up right close-icon">
-                <i
-                    className="material-icons"
-                    onClick={() => {
-                        changeIsOpen(false);
-                    }}
-                >
-                    close
-                </i>
+            <div className="right close-icon">
+                <i className="material-icons"> close </i>
             </div>
 
             <div className="container">
                 <div className="initials-container">
                     <NavLink
-                        to="/"
+                        to="/yourtodos/1"
                         className="btn btn-floating pink lighten-2 initials"
                     >
                         {auth.initials}
@@ -97,20 +75,20 @@ function Sidenav(props) {
             <div className="divider" />
 
             <section className="section">
-                {screenNames.map(screenName => {
+                {screens.map(screen => {
                     const activeClass =
-                        activeScreen === screenName.name
+                        activeScreen === screen.name
                             ? "current-screen-name"
                             : "";
                     return (
                         <div
                             className={`screen-name ${activeClass}`}
-                            key={screenName.name}
+                            key={screen.name}
                             onClick={() => {
-                                changeActiveScreen(screenName);
+                                changeActiveScreen(screen);
                             }}
                         >
-                            <NavItem screenName={screenName.name} />
+                            <NavItem screenName={screen.name} />
                         </div>
                     );
                 })}
@@ -124,8 +102,6 @@ function Sidenav(props) {
                 </div>
             </section>
         </div>
-    ) : (
-        <div />
     );
 }
 

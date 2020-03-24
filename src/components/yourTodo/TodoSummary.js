@@ -23,7 +23,7 @@ function TodoSummary(props) {
                     </div>
                 </div>
                 <div className="card-image">
-                    <img src={todo.imgUrl} alt="beautiful-pic" />
+                    <img src={todo.imgUrl} alt="" />
                 </div>
             </div>
         </div>

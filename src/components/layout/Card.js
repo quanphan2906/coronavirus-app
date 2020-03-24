@@ -1,7 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { withRouter } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
-export default function Card({ todo }) {
+function Card(props) {
+    const { auth } = useContext(AuthContext);
+    const { todo } = props;
+    const toTodoDetail = () => {
+        if (auth.id === todo.author) {
+            props.history.push(`/tododetail/created/${todo.id}`);
+        } else {
+            props.history.push(`/tododetail/guest/${todo.id}`);
+        }
+    };
     return (
         <div className="card">
             <div className="card-img">
@@ -10,12 +20,15 @@ export default function Card({ todo }) {
             <div className="card-title"> {todo.title} </div>
             <div className="card-content">
                 <p>{todo.description}</p>
-                <Link to={`/tododetail/guest/${todo.id}`} className="right">
-                    <i className="material-icons pink-text text-lighten-2">
-                        more_horiz
-                    </i>
-                </Link>
+                <i
+                    className="material-icons pink-text text-lighten-2 right"
+                    onClick={toTodoDetail}
+                >
+                    more_horiz
+                </i>
             </div>
         </div>
     );
 }
+
+export default withRouter(Card);

@@ -5,7 +5,7 @@ function NavButton(props) {
     const { currentPage, totalPage } = props;
     const currentUrl = props.match.path.split(":")[0];
     const handleNav = nextPage => {
-        if (nextPage !== 0 && nextPage <= totalPage) {
+        if (nextPage > 0 && nextPage <= totalPage) {
             props.history.push(currentUrl + nextPage);
         }
     };
@@ -16,7 +16,7 @@ function NavButton(props) {
                     <i
                         className="material-icons"
                         onClick={() => {
-                            handleNav(currentPage - 1);
+                            handleNav(Number(currentPage) - 1);
                         }}
                     >
                         {" "}
@@ -30,7 +30,7 @@ function NavButton(props) {
                     <i
                         className="material-icons"
                         onClick={() => {
-                            handleNav(currentPage + 1);
+                            handleNav(Number(currentPage) + 1);
                         }}
                     >
                         {" "}

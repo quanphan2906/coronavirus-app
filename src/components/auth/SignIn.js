@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -29,10 +29,10 @@ const SignIn = props => {
             });
         } else {
             setIsAuthReady(false);
-            props.history.push("/");
+            props.history.push("/yourtodos/1");
         }
     };
-    if (auth) return <Redirect to="/" />;
+    if (auth) return <Redirect to="/yourtodos/1" />;
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="white">

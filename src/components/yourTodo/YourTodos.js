@@ -1,73 +1,60 @@
-import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import TodoSummary from "./TodoSummary";
-import { TodosContext } from "../../contexts/TodosContext";
 import NavButton from "../layout/NavButton";
+import services from "../../services";
+import { AuthContext } from "../../contexts/AuthContext";
+import Loader from "../layout/Loader";
 
 function YourTodos(props) {
-    const tabs = [
-        { id: "created", name: "Todos you created" },
-        { id: "chosen", name: "Your list of Chosen todos" }
-    ];
-    const tabId = props.match.params.tabId;
-    const { createdTodos, chosenTodos, isTodosReady } = useContext(
-        TodosContext
-    );
-    const todos = tabId === "created" ? createdTodos : chosenTodos;
-    if (isTodosReady === false)
-        return (
-            <div className="loading-container">
-                <div className="lds-roller">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        );
-    const renderTodos = tabs.map(item => {
-        return tabId === item.id ? (
-            <div
-                className="col l10 offset-l1 section"
-                id={item.id}
-                key={item.id}
-            >
-                {todos.map(todo => {
-                    return (
-                        <div
-                            key={todo.id}
-                            className="your-todo-container section"
-                        >
-                            <TodoSummary todo={todo} />
-                        </div>
-                    );
-                })}
-            </div>
-        ) : (
-            false
-        );
-    });
+    const { auth } = useContext(AuthContext);
+    const [todos, setTodos] = useState([]);
+    const [totalPage, setTotalPage] = useState(1);
+    const [isTodosReady, setIsTodosReady] = useState(false);
+    useEffect(() => {
+        setIsTodosReady(false);
+        const fetchData = async () => {
+            if (auth) {
+                const queryObj = {
+                    author: auth.id
+                };
+                const pageNum = props.match.params.pageNum;
+                const perPage = 6;
+                const { totalPageRes, data } = await services.paginateQuery(
+                    "todos",
+                    pageNum,
+                    perPage,
+                    queryObj
+                );
+                setTodos(data);
+                setTotalPage(totalPageRes);
+                setIsTodosReady(true);
+            }
+        };
+        fetchData();
+    }, [props.match.params.pageNum]);
+    if (!auth) return <Redirect to="/signin" />;
+    if (isTodosReady === false) return <Loader />;
     return (
         <div className="your-todos row">
-            <div className="tabs col l8 offset-l3 row">
-                <div className="offset-l1"></div>
-                {tabs.map(item => {
-                    const isActive = tabId === item.id ? "active" : "";
-                    return (
-                        <Link to={`/yourtodos/${item.id}/1`} key={item.id}>
-                            <div
-                                className={`tab-item col l4 offset-l1 pink-text text-darken-1 ${isActive}`}
-                            >
-                                {item.name}
-                            </div>
-                        </Link>
-                    );
-                })}
-            </div>
             {todos.length ? (
                 <React.Fragment>
-                    {renderTodos}
-                    <NavButton />
+                    <div className="col l10 offset-l1 section">
+                        {todos.map(todo => {
+                            return (
+                                <div
+                                    key={todo.id}
+                                    className="your-todo-container section"
+                                >
+                                    <TodoSummary todo={todo} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <NavButton
+                        totalPage={totalPage}
+                        currentPage={props.match.params.pageNum}
+                    />
                 </React.Fragment>
             ) : (
                 <div className="container">You havent had any todo</div>
