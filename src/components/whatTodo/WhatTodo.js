@@ -40,10 +40,11 @@ function WhatTodo(props) {
 
     const totalPage = data.totalPageRes;
     const todosCollection = data.data;
+
     if (isLoading) return <Loader />;
     if (error) return <ErrorNotif />;
     return (
-        <div className="col l12 offset-l1 whattodo-wrapper">
+        <div className="col l10 offset-l1 whattodo-wrapper">
             <div className="input-field filter-bar">
                 <div className="filter col s4 m4 l6 push-l1 push-m1 push-s1">
                     <FilterBar

@@ -19,6 +19,7 @@ function CreateTodo(props) {
 
     const fetchFunc = useCallback(async () => {
         if (props.match.params.todoId) {
+            console.log(props.match.params.todoId);
             const todoId = props.match.params.todoId;
             const res = await services.render("todos", todoId);
             if (res) {

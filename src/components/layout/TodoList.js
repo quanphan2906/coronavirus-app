@@ -9,7 +9,7 @@ function TodoList({ title, todosCollection }) {
             <div className="row section">
                 {todosCollection.map(todo => (
                     <div
-                        className="col s12 m3 l3 offset-l1 offset-m1"
+                        className="col s12 m3 l5 offset-l1 offset-m1"
                         key={todo.id}
                     >
                         <Card todo={todo} />

@@ -11,6 +11,39 @@ function NavItem(props) {
     );
 }
 
+const NavList = ({ screens, activeScreen, changeActiveScreen }) => {
+    return (
+        <section className="section">
+            {screens.map(screen => {
+                const activeClass =
+                    activeScreen === screen.name ? "current-screen-name" : "";
+                return (
+                    <div
+                        className={`screen-name ${activeClass}`}
+                        key={screen.name}
+                        onClick={() => {
+                            changeActiveScreen(screen);
+                        }}
+                    >
+                        <NavItem screenName={screen.name} />
+                    </div>
+                );
+            })}
+        </section>
+    );
+};
+
+const PersonalInfo = ({ title, value }) => {
+    return (
+        <div className="section">
+            <div>
+                <b> {title}: </b>
+            </div>
+            <div> {value} </div>
+        </div>
+    );
+};
+
 function Sidenav(props) {
     const screens = [
         { name: "Your Todos", url: "/yourtodos/1", id: "yourtodos" },
@@ -19,7 +52,6 @@ function Sidenav(props) {
     ];
 
     const [activeScreen, setActiveScreen] = useState(screens[0].name);
-
     useEffect(() => {
         const activeScreenId = props.location.pathname.split("/")[1];
         if (activeScreenId !== "tododetail") {
@@ -35,6 +67,10 @@ function Sidenav(props) {
     };
 
     const { auth } = useContext(AuthContext);
+    const personalInfo = [
+        { title: "Username", value: auth.firstName + auth.lastName },
+        { title: "Email", value: auth.email }
+    ];
 
     const logout = () => {
         services.logout();
@@ -57,42 +93,25 @@ function Sidenav(props) {
                     </NavLink>
                 </div>
                 <section className="section">
-                    <div className="section">
-                        <div>
-                            <b> Username: </b>
-                        </div>
-                        <div> {auth.firstName + auth.lastName} </div>
-                    </div>
-                    <div className="section">
-                        <div>
-                            <b> Email </b>
-                        </div>
-                        <div> {auth.email} </div>
-                    </div>
+                    {personalInfo.map(({ title, value }) => {
+                        return (
+                            <PersonalInfo
+                                key={title}
+                                title={title}
+                                value={value}
+                            />
+                        );
+                    })}
                 </section>
             </div>
 
             <div className="divider" />
 
-            <section className="section">
-                {screens.map(screen => {
-                    const activeClass =
-                        activeScreen === screen.name
-                            ? "current-screen-name"
-                            : "";
-                    return (
-                        <div
-                            className={`screen-name ${activeClass}`}
-                            key={screen.name}
-                            onClick={() => {
-                                changeActiveScreen(screen);
-                            }}
-                        >
-                            <NavItem screenName={screen.name} />
-                        </div>
-                    );
-                })}
-            </section>
+            <NavList
+                screens={screens}
+                activeScreen={activeScreen}
+                changeActiveScreen={changeActiveScreen}
+            />
 
             <div className="divider" />
 

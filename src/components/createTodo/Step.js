@@ -1,4 +1,5 @@
 import React from "react";
+import { auth } from "firebase";
 
 function Step(props) {
     const step = {
@@ -11,17 +12,22 @@ function Step(props) {
     };
     return (
         <div className="step-item row">
-            <div className="right close-icon">
-                <i
-                    className="material-icons"
-                    onClick={() => {
-                        props.deleteStep(props.index);
-                    }}
-                >
-                    {" "}
-                    close{" "}
-                </i>
-            </div>
+            {props.isAuthor ? (
+                <div className="right close-icon">
+                    <i
+                        className="material-icons"
+                        onClick={() => {
+                            props.deleteStep(props.index);
+                        }}
+                    >
+                        {" "}
+                        close{" "}
+                    </i>
+                </div>
+            ) : (
+                false
+            )}
+
             {props.isAuthor ? (
                 <div className="input-field col l6 offset-l1">
                     <textarea

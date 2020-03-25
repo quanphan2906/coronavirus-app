@@ -10,7 +10,7 @@ function useFetchData(initialData, fetchFunc) {
             setIsLoading(true);
             try {
                 const res = await fetchFunc();
-                setData(res);
+                if (res) setData(res);
             } catch (error) {
                 setError(true);
             }

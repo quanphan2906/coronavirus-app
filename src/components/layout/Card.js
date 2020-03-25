@@ -6,10 +6,14 @@ function Card(props) {
     const { auth } = useContext(AuthContext);
     const { todo } = props;
     const toTodoDetail = () => {
-        if (auth.id === todo.author) {
-            props.history.push(`/tododetail/created/${todo.id}`);
-        } else {
+        if (!auth) {
             props.history.push(`/tododetail/guest/${todo.id}`);
+        } else {
+            if (auth.id === todo.author) {
+                props.history.push(`/tododetail/created/${todo.id}`);
+            } else {
+                props.history.push(`/tododetail/guest/${todo.id}`);
+            }
         }
     };
     return (

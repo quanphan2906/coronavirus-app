@@ -9,21 +9,25 @@ import useFetchData from "../hooks/useFetchData";
 import ErrorNotif from "../layout/ErrorNotif";
 
 function YourTodos(props) {
-    const { auth } = useContext(AuthContext);
+    const { auth, isAuthReady } = useContext(AuthContext);
 
     const fetchFunc = useCallback(async () => {
-        const pageNum = props.match.params.pageNum;
-        const perPage = 6;
-        const queryObj = {
-            author: auth.id
-        };
-        const res = await services.paginateQuery(
-            "todos",
-            pageNum,
-            perPage,
-            queryObj
-        );
-        return res;
+        if (auth) {
+            const pageNum = props.match.params.pageNum;
+            const perPage = 6;
+            const queryObj = {
+                author: auth.id
+            };
+            const res = await services.paginateQuery(
+                "todos",
+                pageNum,
+                perPage,
+                queryObj
+            );
+            return res;
+        } else {
+            return null;
+        }
     }, [props.match.params.pageNum, auth.id]);
 
     const [{ data, isLoading, error }] = useFetchData(
@@ -36,8 +40,8 @@ function YourTodos(props) {
     const todos = data.data;
     const totalPage = data.totalPageRes;
 
+    if (isLoading || !isAuthReady) return <Loader />;
     if (!auth) return <Redirect to="/signin" />;
-    if (isLoading) return <Loader />;
     if (error) return <ErrorNotif />;
     return (
         <div className="your-todos row">

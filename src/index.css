@@ -15,16 +15,12 @@ body,
     height: 100%;
 }
 
-.main-wrapper {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 25% 75%;
-}
-
 .main {
     height: 100%;
     margin-bottom: 0rem;
+    width: 75%;
+    position: absolute;
+    right: 0;
 }
 
 .row {
@@ -42,13 +38,21 @@ body,
     width: fit-content;
     height: fit-content;
     margin: 0;
+    top: 0;
+    position: fixed;
 }
 
 .side-nav {
     box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.28);
-    height: 100%;
     border-radius: 4px;
-    width: 100%;
+    height: 200vh; /* 100% Full-height */
+    width: 25vw; /* 0 width - change this with JavaScript */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 64px; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
 .side-nav .container .initials-container {
@@ -352,7 +356,7 @@ body,
     text-decoration: underline;
 }
 
-.your-todos .button-container .page-num-container {
+.button-container .page-num-container {
     margin: 0px 8px 12px;
     font-size: 1.5vw;
     font-weight: 450;
@@ -450,4 +454,8 @@ body,
     100% {
         transform: rotate(360deg);
     }
+}
+
+.material-icons {
+    cursor: pointer;
 }

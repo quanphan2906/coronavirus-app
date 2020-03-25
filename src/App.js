@@ -14,6 +14,12 @@ import Loader from "./components/layout/Loader";
 
 function App() {
     const { auth, isAuthReady } = useContext(AuthContext);
+    var width = "";
+    if (auth) {
+        width = 75;
+    } else {
+        width = 100;
+    }
     return isAuthReady ? (
         <div className="App bg-darken-3">
             <BrowserRouter>
@@ -21,47 +27,39 @@ function App() {
                 <Switch>
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
-                    <Route path="/whattodo/:pageNum" component={WhatTodo} />
-                    <Route
-                        path="/tododetail/guest/:todoId"
-                        component={TodoDetails}
-                    />
                     <Route>
-                        {auth ? (
-                            <div className="main-wrapper">
-                                <Sidenav />
-                                <main className="row main">
-                                    <Route
-                                        path="/tododetail/guest/:todoId"
-                                        component={TodoDetails}
-                                    />
-                                    <Route
-                                        path="/whattodo/:pageNum"
-                                        component={WhatTodo}
-                                    />
-                                    <Route exact path="/">
-                                        <Redirect to="/yourtodos/1" />
-                                    </Route>
-                                    <Route
-                                        exact
-                                        path="/createtodo"
-                                        component={CreateTodo}
-                                    />
-                                    <Route
-                                        exact
-                                        path="/yourtodos/:pageNum"
-                                        component={YourTodos}
-                                    />
-                                    <Route
-                                        exact
-                                        path="/tododetail/created/:todoId"
-                                        component={CreateTodo}
-                                    />
-                                </main>
-                            </div>
-                        ) : (
-                            <Redirect to="/signin" />
-                        )}
+                        {auth ? <Sidenav /> : false}
+                        <main
+                            className="row main"
+                            style={{ width: width + "%" }}
+                        >
+                            <Route
+                                path="/tododetail/guest/:todoId"
+                                component={TodoDetails}
+                            />
+                            <Route
+                                path="/whattodo/:pageNum"
+                                component={WhatTodo}
+                            />
+                            <Route exact path="/">
+                                <Redirect to="/yourtodos/1" />
+                            </Route>
+                            <Route
+                                exact
+                                path="/createtodo"
+                                component={CreateTodo}
+                            />
+                            <Route
+                                exact
+                                path="/yourtodos/:pageNum"
+                                component={YourTodos}
+                            />
+                            <Route
+                                exact
+                                path="/tododetail/created/:todoId"
+                                component={CreateTodo}
+                            />
+                        </main>
                     </Route>
                 </Switch>
             </BrowserRouter>
