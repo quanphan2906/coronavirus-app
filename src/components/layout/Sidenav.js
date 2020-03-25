@@ -28,7 +28,7 @@ function Sidenav(props) {
             });
             setActiveScreen(currentActiveScreen[0].name);
         }
-    }, [props.location.pathname]);
+    }, [props.location.pathname, screens]);
 
     const changeActiveScreen = screenName => {
         props.history.push(screenName.url);

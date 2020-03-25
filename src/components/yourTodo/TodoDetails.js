@@ -20,7 +20,7 @@ function TodoDetails(props) {
         users: []
     });
     const [isTodoInfoReady, setIsTodoInfoReady] = useState(false);
-
+    console.log(props.history);
     useEffect(() => {
         const todoId = props.match.params.todoId;
         const fetchData = async () => {
@@ -33,7 +33,7 @@ function TodoDetails(props) {
             }
         };
         fetchData();
-    }, []);
+    }, [props.match.params.todoId, props.history]);
 
     return isTodoInfoReady ? (
         <div className="create-todo col s10 offset-m1 offset-l1">

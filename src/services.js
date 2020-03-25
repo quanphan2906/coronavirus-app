@@ -191,11 +191,9 @@ const paginateQuery = async (collectionName, pageNumber, perPage, query) => {
     var data = [];
     const db = firebase.firestore();
     let collection = db.collection(collectionName);
-
     for (let key in query) {
         collection = collection.where(key, "==", query[key]);
     }
-
     const r = await collection.get();
     const total = r.docs.length;
     const totalPageRes =

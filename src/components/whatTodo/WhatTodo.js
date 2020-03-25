@@ -1,40 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import FilterBar from "../layout/FilterBar";
 import TodoList from "../layout/TodoList";
 import NavButton from "../layout/NavButton";
 import services from "../../services";
 import Loader from "../layout/Loader";
+import ErrorNotif from "../layout/ErrorNotif";
+import useFetchData from "../hooks/useFetchData";
 
 function WhatTodo(props) {
     const topics = ["Learning websites", "Crafting", "Cooking"];
     const [topic, setTopic] = useState(topics[0]);
-    const [todosCollection, setTodosCollection] = useState([]);
-    const [totalPage, setTotalPage] = useState(1);
-    const [isTodoReady, setIsTodoReady] = useState(false);
-    useEffect(() => {
-        const fetchData = async () => {
-            const pageNum = props.match.params.pageNum;
-            const perPage = 3;
-            const queryObj = {
-                type: topic.toLowerCase()
-            };
-            const { totalPageRes, data } = await services.paginateQuery(
-                "todos",
-                pageNum,
-                perPage,
-                queryObj
-            );
-            setTodosCollection(data);
-            setTotalPage(totalPageRes);
-            setIsTodoReady(true);
+
+    const fetchFunc = useCallback(async () => {
+        const pageNum = props.match.params.pageNum;
+        const perPage = 3;
+        const queryObj = {
+            type: topic.toLowerCase()
         };
-        fetchData();
-    }, [topic]);
+        const res = await services.paginateQuery(
+            "todos",
+            pageNum,
+            perPage,
+            queryObj
+        );
+        return res;
+    }, [props.match.params.pageNum, topic]);
+
+    const [{ data, isLoading, error }] = useFetchData(
+        {
+            data: [],
+            totalPage: null
+        },
+        fetchFunc
+    );
+
     const handleTopicChange = e => {
-        setIsTodoReady(false);
         setTopic(e.target.value);
     };
-    if (!isTodoReady) return <Loader />;
+
+    const totalPage = data.totalPageRes;
+    const todosCollection = data.data;
+    if (isLoading) return <Loader />;
+    if (error) return <ErrorNotif />;
     return (
         <div className="col l12 offset-l1 whattodo-wrapper">
             <div className="input-field filter-bar">
