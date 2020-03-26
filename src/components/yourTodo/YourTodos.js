@@ -41,6 +41,8 @@ function YourTodos(props) {
     const todos = data.data;
     const totalPage = data.totalPageRes;
 
+    console.log(isLoading);
+    console.log(isAuthReady);
     if (isLoading || !isAuthReady) return <Loader />;
     if (!auth) return <Redirect to="/signin" />;
     if (error) return <ErrorNotif />;

@@ -33,12 +33,6 @@ const SignIn = props => {
         }
     };
 
-    useEffect(() => {
-        if (isAuthReady === true && auth) {
-            props.history.push("/yourtodos/1");
-        }
-    }, [isAuthReady, auth]);
-
     if (auth) return <Redirect to="/yourtodos/1" />;
     return (
         <div className="container">
