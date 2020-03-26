@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useCallback } from "react";
 import { Redirect } from "react-router-dom";
 import TodoSummary from "./TodoSummary";
 import NavButton from "../layout/NavButton";
@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Loader from "../layout/Loader";
 import useFetchData from "../hooks/useFetchData";
 import ErrorNotif from "../layout/ErrorNotif";
+import NoTodoNotif from "./NoTodoNotif";
 
 function YourTodos(props) {
     const { auth, isAuthReady } = useContext(AuthContext);
@@ -65,33 +66,10 @@ function YourTodos(props) {
                     />
                 </React.Fragment>
             ) : (
-                <div className="container">You havent had any todo</div>
+                <NoTodoNotif />
             )}
         </div>
     );
 }
 
 export default YourTodos;
-
-// useEffect(() => {
-//     setIsTodosReady(false);
-//     const fetchData = async () => {
-//         if (auth) {
-//             const queryObj = {
-//                 author: auth.id
-//             };
-//             const pageNum = props.match.params.pageNum;
-//             const perPage = 6;
-//             const { totalPageRes, data } = await services.paginateQuery(
-//                 "todos",
-//                 pageNum,
-//                 perPage,
-//                 queryObj
-//             );
-//             setTodos(data);
-//             setTotalPage(totalPageRes);
-//             setIsTodosReady(true);
-//         }
-//     };
-//     fetchData();
-// }, [props.match.params.pageNum, auth]);

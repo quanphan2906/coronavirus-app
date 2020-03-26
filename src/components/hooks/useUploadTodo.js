@@ -44,18 +44,6 @@ function useUploadTodo(auth, todoInfo, files, todoId) {
         return res;
     };
 
-    // useEffect(() => {
-    //     var steps = {};
-    //     for (let key in todoInfo.steps) {
-    //         steps[key] = "";
-    //     }
-    //     setValidation({
-    //         title: "",
-    //         description: "",
-    //         steps: steps
-    //     });
-    // }, [todoInfo]);
-
     useEffect(() => {
         if (isUploading === true) {
             const upload = async () => {
@@ -72,7 +60,7 @@ function useUploadTodo(auth, todoInfo, files, todoId) {
                         if (res.isSuccess) {
                             todoObj.imgUrl = res.url;
                         } else {
-                            setUploadResult(res.error);
+                            setUploadResult(false);
                         }
                     }
                     for (let index in todoInfo.steps) {
@@ -84,7 +72,7 @@ function useUploadTodo(auth, todoInfo, files, todoId) {
                             if (res.isSuccess) {
                                 todoObj.steps[index].imgUrl = res.url;
                             } else {
-                                setUploadResult(res.error);
+                                setUploadResult(false);
                             }
                         }
                     }
@@ -95,12 +83,12 @@ function useUploadTodo(auth, todoInfo, files, todoId) {
                         await services.create("todos", todoObj);
                     }
                     setIsUploading(false);
-                    setUploadResult("Upload Succeed");
+                    setUploadResult(true);
                 }
             };
             upload();
         }
-    }, [isUploading, todoId, todoInfo, auth]);
+    }, [isUploading, todoId, todoInfo, auth, files, validation]);
 
     return [
         { isUploading, validation, uploadResult },

@@ -67,6 +67,11 @@ function CreateTodo(props) {
 
     const handleFormChange = e => {
         setUploadResult(null);
+        setValidation({
+            title: "",
+            description: "",
+            steps: {}
+        });
         setTodoInfo({
             ...todoInfo,
             [e.target.id]: e.target.value
@@ -109,6 +114,11 @@ function CreateTodo(props) {
 
     const handleStepChange = (e, index = null) => {
         setUploadResult(null);
+        setValidation({
+            title: "",
+            description: "",
+            steps: {}
+        });
         setTodoInfo({
             ...todoInfo,
             steps: {
@@ -124,6 +134,11 @@ function CreateTodo(props) {
     const addStep = () => {
         var newIndex = Number(Object.keys(todoInfo.steps).length) + 1;
         newIndex = newIndex.toString();
+        setValidation({
+            title: "",
+            description: "",
+            steps: {}
+        });
         setTodoInfo({
             ...todoInfo,
             steps: {
@@ -153,6 +168,11 @@ function CreateTodo(props) {
                     i++;
                 }
             }
+            setValidation({
+                title: "",
+                description: "",
+                steps: {}
+            });
             setTodoInfo({
                 ...todoInfo,
                 steps
@@ -190,7 +210,7 @@ function CreateTodo(props) {
             <Description
                 todoInfo={todoInfo}
                 handleFormChange={handleFormChange}
-                errors={validation}
+                validation={validation}
                 handleImgChange={handleImgChange}
                 files={files}
             />
@@ -199,7 +219,7 @@ function CreateTodo(props) {
 
             <StepList
                 todoInfo={todoInfo}
-                errors={validation}
+                validation={validation}
                 addStep={addStep}
                 deleteStep={deleteStep}
                 files={files}

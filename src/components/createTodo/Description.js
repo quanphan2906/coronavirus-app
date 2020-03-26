@@ -4,7 +4,7 @@ function Description(props) {
     const {
         todoInfo,
         handleFormChange,
-        errors,
+        validation,
         handleImgChange,
         files
     } = props;
@@ -23,7 +23,7 @@ function Description(props) {
                         onChange={handleFormChange}
                     />
                 </div>
-                <div className="container red-text">{errors.description}</div>
+                <div className="red-text">{validation.description}</div>
             </div>
             <div className="col l1 offset-l1">
                 <input type="file" onChange={handleImgChange} />

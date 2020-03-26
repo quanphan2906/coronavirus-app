@@ -4,7 +4,7 @@ import Step from "./Step";
 function StepList(props) {
     const {
         todoInfo,
-        errors,
+        validation,
         addStep,
         deleteStep,
         files,
@@ -27,10 +27,8 @@ function StepList(props) {
                             onStepChange={handleStepChange}
                             onImgChange={handleImgChange}
                             deleteStep={deleteStep}
+                            validation={validation.steps[key]}
                         />
-                        <div className="container red-text">
-                            {errors.steps[key]}
-                        </div>
                     </Fragment>
                 ))}
             </div>

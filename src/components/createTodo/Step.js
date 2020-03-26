@@ -1,5 +1,4 @@
 import React from "react";
-import { auth } from "firebase";
 
 function Step(props) {
     const step = {
@@ -28,26 +27,30 @@ function Step(props) {
                 false
             )}
 
-            {props.isAuthor ? (
-                <div className="input-field col l6 offset-l1">
-                    <textarea
-                        type="text"
-                        id="step"
-                        index={props.index}
-                        className="materialize-textarea"
-                        value={step.content}
-                        onChange={e => {
-                            props.onStepChange(e, props.index);
-                        }}
-                    />
-                    <label htmlFor="step"> Step {props.index} </label>
-                </div>
-            ) : (
-                <div className="col l6 offset-l1">
-                    <div className="step-label"> Step {props.index} </div>
-                    <p>{step.content}</p>
-                </div>
-            )}
+            <div className="col l6 offset-l1">
+                {props.isAuthor ? (
+                    <div className="input-field">
+                        <textarea
+                            type="text"
+                            id="step"
+                            index={props.index}
+                            className="materialize-textarea"
+                            value={step.content}
+                            onChange={e => {
+                                props.onStepChange(e, props.index);
+                            }}
+                        />
+                        <label htmlFor="step"> Step {props.index} </label>
+                    </div>
+                ) : (
+                    <div className="col">
+                        <div className="step-label"> Step {props.index} </div>
+                        <p>{step.content}</p>
+                    </div>
+                )}
+                <div className="red-text">{props.validation}</div>
+            </div>
+
             <div className="col l4 offset-l1">
                 {props.isAuthor ? (
                     <input

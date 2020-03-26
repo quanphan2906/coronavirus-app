@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "../layout/Loader";
+import UploadResult from "./UploadResult";
 
 function Publish(props) {
     const { handleFormSubmit, uploading, uploadResult } = props;
@@ -14,11 +15,7 @@ function Publish(props) {
                     <>Loading...</>
                 )}
             </button>
-            {uploadResult ? (
-                <div className="upload-result">{uploadResult}</div>
-            ) : (
-                false
-            )}
+            <UploadResult uploadResult={uploadResult} />
             {uploading ? <Loader /> : false}
         </div>
     );
