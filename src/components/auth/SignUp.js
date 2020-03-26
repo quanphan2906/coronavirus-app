@@ -3,10 +3,9 @@ import { Redirect } from "react-router-dom";
 
 import services from "../../services";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useEffect } from "react";
 
-const SignUp = props => {
-    const { auth, isAuthReady, setIsAuthReady } = useContext(AuthContext);
+const SignUp = () => {
+    const { auth } = useContext(AuthContext);
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -30,8 +29,6 @@ const SignUp = props => {
                 ...state,
                 error: res.error
             });
-        } else {
-            setIsAuthReady(false);
         }
     };
 
