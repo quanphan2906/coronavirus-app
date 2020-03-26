@@ -29,7 +29,7 @@ function YourTodos(props) {
         } else {
             return null;
         }
-    }, [props.match.params.pageNum, auth.id]);
+    }, [props.match.params.pageNum, auth]);
 
     const [{ data, isLoading, error }] = useFetchData(
         {

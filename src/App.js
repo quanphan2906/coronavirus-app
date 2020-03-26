@@ -25,6 +25,9 @@ function App() {
             <BrowserRouter>
                 <Navbar />
                 <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/signin" />
+                    </Route>
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
                     <Route>
@@ -41,9 +44,6 @@ function App() {
                                 path="/whattodo/:pageNum"
                                 component={WhatTodo}
                             />
-                            <Route exact path="/">
-                                <Redirect to="/signin" />
-                            </Route>
                             <Route
                                 exact
                                 path="/createtodo"
