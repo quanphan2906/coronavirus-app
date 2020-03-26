@@ -15,7 +15,7 @@ function YourTodos(props) {
     const fetchFunc = useCallback(async () => {
         if (auth) {
             const pageNum = props.match.params.pageNum;
-            const perPage = 6;
+            const perPage = 3;
             const queryObj = {
                 author: auth.id
             };
@@ -45,9 +45,9 @@ function YourTodos(props) {
     if (!auth) return <Redirect to="/signin" />;
     if (error) return <ErrorNotif />;
     return (
-        <div className="your-todos row">
+        <div className="your-todos">
             {todos.length ? (
-                <React.Fragment>
+                <div className="your-todos-wrapper">
                     <div className="col l10 offset-l1 section">
                         {todos.map(todo => {
                             return (
@@ -64,7 +64,7 @@ function YourTodos(props) {
                         totalPage={totalPage}
                         currentPage={props.match.params.pageNum}
                     />
-                </React.Fragment>
+                </div>
             ) : (
                 <NoTodoNotif />
             )}

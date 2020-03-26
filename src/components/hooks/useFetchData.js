@@ -5,6 +5,7 @@ function useFetchData(initialData, fetchFunc) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
     useEffect(() => {
+        let mounted = true;
         const fetchData = async () => {
             setError(false);
             setIsLoading(true);
@@ -16,7 +17,8 @@ function useFetchData(initialData, fetchFunc) {
             }
             setIsLoading(false);
         };
-        fetchData();
+        if (mounted) fetchData();
+        return () => (mounted = false);
     }, [fetchFunc]);
     return [{ data, isLoading, error }, setData, setIsLoading, setError];
 }

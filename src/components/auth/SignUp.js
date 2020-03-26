@@ -3,9 +3,10 @@ import { Redirect } from "react-router-dom";
 
 import services from "../../services";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useEffect } from "react";
 
 const SignUp = props => {
-    const { auth } = useContext(AuthContext);
+    const { auth, isAuthReady, setIsAuthReady } = useContext(AuthContext);
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -30,9 +31,16 @@ const SignUp = props => {
                 error: res.error
             });
         } else {
-            props.history.push("/yourtodos/1");
+            setIsAuthReady(false);
         }
     };
+
+    useEffect(() => {
+        if (isAuthReady === true && auth) {
+            props.history.push("/yourtodos/1");
+        }
+    }, [isAuthReady, auth]);
+
     if (auth) return <Redirect to="/yourtodos/1" />;
     return (
         <div className="container">

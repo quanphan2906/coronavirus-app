@@ -34,6 +34,10 @@ body,
     height: 100%;
 }
 
+.nav-wrapper .brand-logo {
+    font-family: "Pacifico", cursive;
+}
+
 .nav-wrapper .container div {
     width: fit-content;
     height: fit-content;

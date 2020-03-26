@@ -10,34 +10,32 @@ function NavButton(props) {
         }
     };
     return (
-        <div>
-            <div className="button-container col l12 center">
-                <button className="btn btn-floating pink">
-                    <i
-                        className="material-icons"
-                        onClick={() => {
-                            handleNav(Number(currentPage) - 1);
-                        }}
-                    >
-                        {" "}
-                        navigate_before{" "}
-                    </i>
-                </button>
-                <span className="page-num-container">
-                    {currentPage + "/" + totalPage}
-                </span>
-                <button className="btn btn-floating pink">
-                    <i
-                        className="material-icons"
-                        onClick={() => {
-                            handleNav(Number(currentPage) + 1);
-                        }}
-                    >
-                        {" "}
-                        navigate_next{" "}
-                    </i>
-                </button>
-            </div>
+        <div className="button-container col l12 center">
+            <button className="btn btn-floating pink">
+                <i
+                    className="material-icons"
+                    onClick={() => {
+                        handleNav(Number(currentPage) - 1);
+                    }}
+                >
+                    {" "}
+                    navigate_before{" "}
+                </i>
+            </button>
+            <span className="page-num-container">
+                {currentPage + "/" + totalPage}
+            </span>
+            <button className="btn btn-floating pink">
+                <i
+                    className="material-icons"
+                    onClick={() => {
+                        handleNav(Number(currentPage) + 1);
+                    }}
+                >
+                    {" "}
+                    navigate_next{" "}
+                </i>
+            </button>
         </div>
     );
 }

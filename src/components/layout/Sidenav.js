@@ -79,10 +79,6 @@ function Sidenav(props) {
     if (!auth) return <div></div>;
     return (
         <div className="white lighten-4 side-nav">
-            <div className="right close-icon">
-                <i className="material-icons"> close </i>
-            </div>
-
             <div className="container">
                 <div className="initials-container">
                     <NavLink

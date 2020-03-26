@@ -31,35 +31,37 @@ function App() {
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
                     <Route>
-                        {auth ? <Sidenav /> : false}
-                        <main
-                            className="row main"
-                            style={{ width: width + "%" }}
-                        >
-                            <Route
-                                path="/tododetail/guest/:todoId"
-                                component={TodoDetails}
-                            />
-                            <Route
-                                path="/whattodo/:pageNum"
-                                component={WhatTodo}
-                            />
-                            <Route
-                                exact
-                                path="/createtodo"
-                                component={CreateTodo}
-                            />
-                            <Route
-                                exact
-                                path="/yourtodos/:pageNum"
-                                component={YourTodos}
-                            />
-                            <Route
-                                exact
-                                path="/tododetail/created/:todoId"
-                                component={CreateTodo}
-                            />
-                        </main>
+                        <div>
+                            {auth ? <Sidenav /> : false}
+                            <main
+                                className="row main"
+                                style={{ width: width + "%" }}
+                            >
+                                <Route
+                                    path="/tododetail/guest/:todoId"
+                                    component={TodoDetails}
+                                />
+                                <Route
+                                    path="/whattodo/:pageNum"
+                                    component={WhatTodo}
+                                />
+                                <Route
+                                    exact
+                                    path="/createtodo"
+                                    component={CreateTodo}
+                                />
+                                <Route
+                                    exact
+                                    path="/yourtodos/:pageNum"
+                                    component={YourTodos}
+                                />
+                                <Route
+                                    exact
+                                    path="/tododetail/created/:todoId"
+                                    component={CreateTodo}
+                                />
+                            </main>
+                        </div>
                     </Route>
                 </Switch>
             </BrowserRouter>
