@@ -42,7 +42,7 @@ function App() {
                                 component={WhatTodo}
                             />
                             <Route exact path="/">
-                                <Redirect to="/yourtodos/1" />
+                                <Redirect to="/signin" />
                             </Route>
                             <Route
                                 exact

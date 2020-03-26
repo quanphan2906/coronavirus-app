@@ -54,13 +54,10 @@ function Sidenav(props) {
     const [activeScreen, setActiveScreen] = useState(screens[0].name);
     useEffect(() => {
         const activeScreenId = props.location.pathname.split("/")[1];
-        console.log(activeScreenId);
         if (activeScreenId !== "tododetail") {
             const currentActiveScreen = screens.filter(screen => {
                 return screen.id === activeScreenId;
             });
-            console.log(activeScreenId);
-            console.log(screens);
             setActiveScreen(currentActiveScreen[0].name);
         }
     }, [props.location.pathname, screens]);
